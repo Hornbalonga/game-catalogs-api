@@ -2,6 +2,8 @@ package com.pedro.gamecatalogs.repository;
 
 import com.pedro.gamecatalogs.model.Game;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public class GameRepository  extends JpaRepository<Game, Long> {
+@Repository
+public interface GameRepository  extends JpaRepository<Game, Long> {
 }

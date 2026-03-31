@@ -57,6 +57,7 @@ public class Game {
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
 
+
     @PrePersist
     public void prePersist() {
         createdAt = Instant.now();
