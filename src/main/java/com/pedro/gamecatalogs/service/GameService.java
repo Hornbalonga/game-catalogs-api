@@ -2,6 +2,7 @@ package com.pedro.gamecatalogs.service;
 
 import com.pedro.gamecatalogs.dtos.GameRequestDto;
 import com.pedro.gamecatalogs.dtos.GameResponseDto;
+import com.pedro.gamecatalogs.exception.ResourceNotFoundException;
 import com.pedro.gamecatalogs.model.Game;
 import com.pedro.gamecatalogs.repository.GameRepository;
 
@@ -39,15 +40,22 @@ public class GameService {
                 .toList();
     }
 
+    public Game findEntityId(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Jogo não encontrado com id " + id));
+    }
+
+
     public GameResponseDto findById(Long id) {
-        Game game = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Jogo não encontrado" + id));
+        Game game =findEntityId(id);
+
         return mapToResponse(game);
     }
 
     public GameResponseDto update(Long id, GameRequestDto dto) {
         Game game = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Jogo não encontrado" + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Jogo não encontrado com id: " + id));
+
         game.setName(dto.getName());
         game.setPlatform(dto.getPlatform());
         game.setGenre(dto.getGenre());
@@ -55,15 +63,14 @@ public class GameService {
         game.setRating(dto.getRating());
         game.setYearPlayed(dto.getYearPlayed());
         game.setObservation(dto.getObservation());
+
         Game updated = repository.save(game);
         return mapToResponse(updated);
     }
 
     public void delete(Long id) {
-        if (!repository.existsById(id)) {
-            throw new RuntimeException("Jogo não encontrado" + id);
-        }
-        repository.deleteById(id);
+        Game game = findEntityId(id);
+        repository.delete(game);
     }
 
 
