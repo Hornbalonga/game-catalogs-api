@@ -76,4 +76,42 @@ Exemplo de resposta para erro de validação:
 Exemplo de resposta para recurso não encontrado:
 ```json
 {
-  "error": "Jogo não 
+  "error": "Jogo não encontrado com id: 999"
+}
+```
+
+## Como executar o projeto
+1. Clone o repositório:
+```bash
+git clone https://github.com/Hornbalonga/game-catalogs-api.git
+cd game-catalogs-api
+```
+
+2. Configure o PostgreSQL no `application.properties` com sua URL, usuário e senha.
+
+Exemplo:
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/gamecatalogs
+spring.datasource.username=postgres
+spring.datasource.password=sua_senha
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.hibernate.ddl-auto=update
+```
+
+3. Execute a aplicação:
+```bash
+./mvnw spring-boot:run
+```
+
+No Windows (PowerShell):
+```powershell
+.\mvnw.cmd spring-boot:run
+```
+
+## Banco de dados
+O projeto utiliza PostgreSQL como banco de dados principal.
+
+## Próximos passos
+- Adicionar documentação com Swagger / OpenAPI
+- Melhorar mensagens personalizadas para enum inválido
+- Adicionar testes automatizados
