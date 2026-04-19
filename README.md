@@ -10,7 +10,7 @@ Projeto em desenvolvimento.
 - Spring Boot
 - Spring Data JPA
 - Spring Validation
-- H2 Database
+- PostgreSQL
 - Lombok
 - Maven
 
@@ -76,34 +76,4 @@ Exemplo de resposta para erro de validação:
 Exemplo de resposta para recurso não encontrado:
 ```json
 {
-  "error": "Jogo não encontrado com id: 999"
-}
-```
-
-## Como executar o projeto
-1. Clone o repositório:
-```bash
-git clone https://github.com/Hornbalonga/game-catalogs-api.git
-cd game-catalogs-api
-```
-
-2. Execute a aplicação:
-```bash
-./mvnw spring-boot:run
-```
-
-No Windows (PowerShell):
-```powershell
-.\mvnw.cmd spring-boot:run
-```
-
-## Banco H2
-- Console: `http://localhost:8080/h2-console`
-- URL JDBC: `jdbc:h2:mem:testdb`  
-  (pode variar conforme o `application.properties`)
-
-## Próximos passos
-- Adicionar documentação com Swagger / OpenAPI
-- Melhorar mensagens personalizadas para enum inválido
-- Adicionar testes automatizados
-- Migrar para PostgreSQL em cenários de produção
+  "error": "Jogo não 
