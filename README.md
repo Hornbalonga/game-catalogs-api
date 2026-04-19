@@ -1,6 +1,6 @@
 # Game Catalogs API
 
-API REST em Java/Spring Boot para gerenciar um catalogo de jogos.
+API REST desenvolvida com Java e Spring Boot para gerenciar um catálogo de jogos.
 
 ## Status
 Projeto em desenvolvimento.
@@ -14,33 +14,84 @@ Projeto em desenvolvimento.
 - Lombok
 - Maven
 
-## Objetivo
-Permitir o cadastro e consulta de jogos com dados como:
+## Funcionalidades
+- Cadastrar um jogo
+- Listar todos os jogos
+- Buscar um jogo por ID
+- Atualizar um jogo
+- Deletar um jogo
+- Validar dados de entrada
+- Tratar erros globais de validação e recurso não encontrado
+
+## Domínio
+Um jogo contém os seguintes dados:
 - nome
 - plataforma
-- genero
-- status do jogo (enum)
+- gênero
+- status do jogo (`enum`)
 - nota (`0.0` a `10.0`)
 - ano jogado (opcional)
-- observacao (opcional)
-- data de criacao automatica
+- observação (opcional)
+- data de criação automática
 
-## Estrutura atual
-- Entidade `Game`
-- Enum `GameStatus`
-- Repositorio `GameRepository`
+## Endpoints da API
+URL base:
+```text
+http://localhost:8080/api/games
+```
 
-## Como executar
-1. Clone o repositorio:
+Endpoints disponíveis:
+- `POST /api/games` — cadastrar um novo jogo
+- `GET /api/games` — listar todos os jogos
+- `GET /api/games/{id}` — buscar um jogo por ID
+- `PUT /api/games/{id}` — atualizar um jogo
+- `DELETE /api/games/{id}` — remover um jogo
+
+## Regras de validação
+- `name` é obrigatório, com mínimo de 3 e máximo de 100 caracteres
+- `platform` é obrigatório
+- `genre` é obrigatório
+- `status` é obrigatório
+- `rating` deve estar entre `0.0` e `10.0`
+- `yearPlayed` deve estar entre `1970` e `2026`
+- `observation` deve ter no máximo 500 caracteres
+
+## Tratamento de erros
+Atualmente a API trata:
+- `400 Bad Request` para dados inválidos no corpo da requisição
+- `404 Not Found` quando o jogo não é encontrado
+
+Exemplo de resposta para erro de validação:
+```json
+{
+  "yearPlayed": "deve ser maior que ou igual à 1970",
+  "rating": "deve ser menor que ou igual a 10.0",
+  "name": "Nome é obrigatório",
+  "genre": "Gênero é obrigatório",
+  "platform": "Plataforma é obrigatória",
+  "status": "Status é obrigatório"
+}
+```
+
+Exemplo de resposta para recurso não encontrado:
+```json
+{
+  "error": "Jogo não encontrado com id: 999"
+}
+```
+
+## Como executar o projeto
+1. Clone o repositório:
 ```bash
 git clone https://github.com/Hornbalonga/game-catalogs-api.git
 cd game-catalogs-api
 ```
 
-2. Rode a aplicacao:
+2. Execute a aplicação:
 ```bash
 ./mvnw spring-boot:run
 ```
+
 No Windows (PowerShell):
 ```powershell
 .\mvnw.cmd spring-boot:run
@@ -48,11 +99,11 @@ No Windows (PowerShell):
 
 ## Banco H2
 - Console: `http://localhost:8080/h2-console`
-- URL JDBC: `jdbc:h2:mem:testdb` (pode variar conforme `application.properties`)
+- URL JDBC: `jdbc:h2:mem:testdb`  
+  (pode variar conforme o `application.properties`)
 
-## Proximos passos
-- Criar `GameController` com endpoints `POST /games` e `GET /games`
-- Adicionar DTOs de request/response
-- Implementar tratamento de erros de validacao
-- Adicionar testes
-
+## Próximos passos
+- Adicionar documentação com Swagger / OpenAPI
+- Melhorar mensagens personalizadas para enum inválido
+- Adicionar testes automatizados
+- Migrar para PostgreSQL em cenários de produção
