@@ -25,6 +25,11 @@ public class GameController {
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
+    @GetMapping("/")
+    public String home(){
+        return "API online";
+    }
+
     @GetMapping
     public ResponseEntity<List<GameResponseDto>> findAll() {
         return ResponseEntity.ok(service.findAll());
