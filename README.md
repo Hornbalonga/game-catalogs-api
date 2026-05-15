@@ -3,7 +3,7 @@
 API REST desenvolvida com Java e Spring Boot para gerenciar um catálogo de jogos.
 
 ## Status
-Projeto em desenvolvimento.
+Projeto finalizado e publicado no Railway.
 
 ## Stack
 - Java 21
@@ -13,6 +13,8 @@ Projeto em desenvolvimento.
 - PostgreSQL
 - Lombok
 - Maven
+- Swagger / OpenAPI
+- Railway
 
 ## Funcionalidades
 - Cadastrar um jogo
@@ -22,6 +24,7 @@ Projeto em desenvolvimento.
 - Deletar um jogo
 - Validar dados de entrada
 - Tratar erros globais de validação e recurso não encontrado
+- Documentar a API com Swagger
 
 ## Domínio
 Um jogo contém os seguintes dados:
@@ -35,9 +38,19 @@ Um jogo contém os seguintes dados:
 - data de criação automática
 
 ## Endpoints da API
-URL base:
+URL base local:
 ```text
 http://localhost:8080/api/games
+```
+
+URL base em produção:
+```text
+https://game-catalogs-api-production.up.railway.app/api/games
+```
+
+Swagger em produção:
+```text
+https://game-catalogs-api-production.up.railway.app/swagger-ui/index.html
 ```
 
 Endpoints disponíveis:
@@ -87,7 +100,7 @@ git clone https://github.com/Hornbalonga/game-catalogs-api.git
 cd game-catalogs-api
 ```
 
-2. Configure o PostgreSQL no `application.properties` com sua URL, usuário e senha.
+2. Configure o PostgreSQL no `application.properties` ou por variáveis de ambiente.
 
 Exemplo:
 ```properties
@@ -96,6 +109,7 @@ spring.datasource.username=postgres
 spring.datasource.password=sua_senha
 spring.datasource.driver-class-name=org.postgresql.Driver
 spring.jpa.hibernate.ddl-auto=update
+server.port=8080
 ```
 
 3. Execute a aplicação:
@@ -109,9 +123,10 @@ No Windows (PowerShell):
 ```
 
 ## Banco de dados
-O projeto utiliza PostgreSQL como banco de dados principal.
+O projeto utiliza PostgreSQL como banco de dados principal, tanto no ambiente local quanto no deploy em produção no Railway.
 
-## Próximos passos
-- Adicionar documentação com Swagger / OpenAPI
-- Melhorar mensagens personalizadas para enum inválido
-- Adicionar testes automatizados
+## Deploy
+Aplicação publicada no Railway com PostgreSQL.
+
+- API: https://game-catalogs-api-production.up.railway.app/
+- Swagger: https://game-catalogs-api-production.up.railway.app/swagger-ui/index.html
